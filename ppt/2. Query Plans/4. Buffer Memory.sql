@@ -1,5 +1,5 @@
 -- Spin Up
---   SELECT * FROM AdventureWorks2014.Sales.SalesOrderHeader
+--   SELECT * FROM AdventureWorks2016.Sales.SalesOrderHeader
 
 ---------------------------------------------------------------------------------
 -- How much memory is in the Buffer Pool?
@@ -24,6 +24,7 @@ SELECT LEFT(CASE database_id
 FROM sys.dm_os_buffer_descriptors
 GROUP BY db_name(database_id) ,database_id
 ORDER BY Buffered_Page_Count DESC
+
 
 -- Now much of each object is in the buffer
 SELECT TOP 25 

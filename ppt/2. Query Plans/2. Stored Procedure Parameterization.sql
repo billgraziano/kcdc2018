@@ -20,13 +20,13 @@ GO
 DBCC FREEPROCCACHE
 GO
 
-EXEC [dbo].[GetLineTotal] 43674
+EXEC [dbo].[GetLineTotal] 44347
 GO
-EXEC [dbo].[GetLineTotal]      43675
+EXEC [dbo].[GetLineTotal]      44347
 GO
-EXEC GETLINETOTAL 43674
+EXEC GETLINETOTAL 44347
 GO
-EXEC [dbo].[GetLineTotal] @SalesOrderID = 43674
+EXEC [dbo].[GetLineTotal] @SalesOrderID = 44348
 GO
 
 
@@ -45,11 +45,11 @@ GO
 use AdventureWorks2016
 GO
 
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetLineTotal]') AND type in (N'P', N'PC'))
-	DROP PROCEDURE [dbo].[GetLineTotal]
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetLineTotalDynamic]') AND type in (N'P', N'PC'))
+	DROP PROCEDURE [dbo].[GetLineTotalDynamic]
 GO
 
-CREATE PROC [dbo].[GetLineTotal](@SalesOrderID INT)
+CREATE PROC [dbo].[GetLineTotalDynamic](@SalesOrderID INT)
 AS
 
 DECLARE @SQL NVARCHAR(4000)
@@ -68,14 +68,15 @@ DBCC FREEPROCCACHE
 GO
 
 set dateformat MDY
+-- set dateformat YMD
 
-EXEC [dbo].[GetLineTotal] 43935
+EXEC [dbo].[GetLineTotalDynamic] 43935
 GO
-EXEC [dbo].[GetLineTotal]      43941
+EXEC [dbo].[GetLineTotalDynamic]      43941
 GO
-EXEC GetLineTotal 43955
+EXEC [GetLineTotalDynamic] 43955
 GO
-EXEC [dbo].[GetLineTotal] @SalesOrderID = 44063
+EXEC [dbo].[GetLineTotalDynamic] @SalesOrderID = 44063
 GO
 
 

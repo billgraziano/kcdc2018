@@ -29,7 +29,9 @@ SET		RegionCode = 'MO'
 
 UPDATE Sales.SalesOrderHeader
 SET		RegionCode = 'KS'
-WHERE	SalesOrderID IN (SELECT TOP 5 SalesOrderID FROM Sales.SalesOrderHeader ORDER BY NEWID() )
+WHERE	SalesOrderID IN (SELECT TOP 5 SalesOrderID 
+							FROM Sales.SalesOrderHeader 
+							ORDER BY NEWID() )
 
 CREATE INDEX IX_SalesOrderHeader_RegionCode ON Sales.SalesOrderHeader(RegionCode)
 GO
@@ -46,7 +48,7 @@ FROM	Sales.SalesOrderHeader
 WHERE	RegionCode = 'MO'
 GO
 			--DBCC FREEPROCCACHE
-			--GOR
+			--GO
 SELECT	*
 FROM	Sales.SalesOrderHeader
 WHERE	RegionCode = 'KS'
@@ -130,4 +132,12 @@ GO
 EXEC ParameterSniffing 'KS'
 GO
 EXEC ParameterSniffing 'MO'
+GO
+
+
+
+select  [sql].[text], stats.execution_count, p.size_in_bytes
+from sys.dm_exec_cached_plans p
+outer apply sys.dm_exec_sql_text (p.plan_handle) sql
+join sys.dm_exec_query_stats stats ON stats.plan_handle = p.plan_handle
 GO

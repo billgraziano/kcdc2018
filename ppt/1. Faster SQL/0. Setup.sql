@@ -1,6 +1,8 @@
 ---------------------------------------------------------------------------------------------
 -- Setup
 ---------------------------------------------------------------------------------------------
+USE AdventureWorks2016
+GO
 CREATE NONCLUSTERED INDEX [IX_SalesOrderHeader_OrderDate] ON [Sales].[SalesOrderHeader]
 ( [OrderDate] ASC )
 

@@ -1,7 +1,8 @@
 ---------------------------------------------------------------------------------------------
 -- Writing Faster SQL
 ---------------------------------------------------------------------------------------------
-
+USE AdventureWorks2016
+GO
 -- FUNCTIONS IN THE WHERE CLAUSE
 SET STATISTICS IO ON 
 GO
@@ -44,8 +45,15 @@ JOIN		Sales.SalesOrderDetail D
 WHERE	H.CustomerID = 25924
 AND		H.[Status] = 5
 
-CREATE NONCLUSTERED INDEX [IX_Sales_Customer_INCLDUE] ON [Sales].[SalesOrderHeader]
-( [CustomerID] ASC )  INCLUDE ( [Status] ) 
+	CREATE NONCLUSTERED INDEX [IX_Sales_Customer_INCLDUE] ON [Sales].[SalesOrderHeader]
+	( [CustomerID] ASC )  INCLUDE ( [Status] )
+
+SELECT  	SUM(D.LineTotal) AS LineTotal
+FROM		Sales.SalesOrderHeader H
+JOIN		Sales.SalesOrderDetail D 
+	ON D.SalesOrderID = H.SalesOrderID
+WHERE	H.CustomerID = 25924
+AND		H.[Status] = 5 
 
 
 DROP INDEX [IX_Sales_Customer_INCLDUE] ON [Sales].[SalesOrderHeader]
@@ -60,11 +68,16 @@ WHERE	CustomerID = 29824
 AND		ShipMethodID = 5
 ORDER BY OrderDate
 
+	CREATE NONCLUSTERED INDEX [IX_SalesOrderHeader_FILTERED] ON [Sales].[SalesOrderHeader]
+	(	[CustomerID] ASC,
+		[OrderDate] ASC  )
+	WHERE ShipMethodID = 5
 
-CREATE NONCLUSTERED INDEX [IX_SalesOrderHeader_FILTERED] ON [Sales].[SalesOrderHeader]
-(	[CustomerID] ASC,
-	[OrderDate] ASC  )
-WHERE ShipMethodID = 5
+SELECT	SalesOrderID, CustomerID, OrderDate
+FROM	Sales.SalesOrderHeader 
+WHERE	CustomerID = 29824
+AND		ShipMethodID = 5
+ORDER BY OrderDate
 
 DROP INDEX  [IX_SalesOrderHeader_FILTERED] ON [Sales].[SalesOrderHeader]
 
@@ -72,7 +85,7 @@ DROP INDEX  [IX_SalesOrderHeader_FILTERED] ON [Sales].[SalesOrderHeader]
 --------------------------------------------------------------------------------------------
 -- Use EXISTS
 --------------------------------------------------------------------------------------------
-Use AdventureWorks;
+Use AdventureWorks2016;
 GO
 DECLARE @Rows INT;
 

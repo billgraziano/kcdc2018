@@ -10,6 +10,7 @@ select [name], is_parameterization_forced from master.sys.databases order by 1
 
 ---------------------------------- Single Statement --------------------------------------------
 DBCC FREEPROCCACHE
+SET STATISTICS IO ON;
 GO
 
 select *
