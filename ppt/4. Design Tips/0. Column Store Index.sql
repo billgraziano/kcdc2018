@@ -23,9 +23,13 @@ ORDER BY SalesTerritoryRegion,CalendarYear,[Total Sales] desc
 
 DBCC DROPCLEANBUFFERS
 
-SELECT s.SalesTerritoryRegion,d.[CalendarYear],FirstName + ' ' + lastName as 'Employee',FORMAT(SUM(f.SalesAmount),'C') AS 'Total Sales', 
-SUM(f.OrderQuantity) as 'Order Quantity', COUNT(distinct f.SalesOrdernumber) as 'Number of Orders', 
-count(distinct f.Resellerkey) as 'Num of Resellers'
+SELECT	s.SalesTerritoryRegion,
+		d.[CalendarYear],
+		FirstName + ' ' + lastName as 'Employee',
+		FORMAT(SUM(f.SalesAmount),'C') AS 'Total Sales', 
+		SUM(f.OrderQuantity) as 'Order Quantity', 
+		COUNT(distinct f.SalesOrdernumber) as 'Number of Orders', 
+		count(distinct f.Resellerkey) as 'Num of Resellers'
 FROM FactResellerSalesXL_CCI  f
 INNER JOIN [dbo].[DimDate] d ON f.OrderDateKey= d.Datekey
 INNER JOIN [dbo].[DimSalesTerritory] s on s.SalesTerritoryKey=f.SalesTerritoryKey

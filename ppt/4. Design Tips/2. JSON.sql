@@ -1,4 +1,5 @@
-
+use AdventureWorks2016
+go
 -- Basic Query 
 DECLARE @json NVARCHAR(MAX)
 SET @json =  
@@ -18,7 +19,7 @@ GO
 
 -- Convert data to JSON
 SELECT	SalesOrderNumber, OrderDate, SubTotal 
-FROM	Sales.SalesOrderHeader
+FROM	AdventureWorks2016.Sales.SalesOrderHeader
 WHERE	RegionCode = 'KS'
 FOR JSON PATH;
 

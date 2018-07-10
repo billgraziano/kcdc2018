@@ -1,3 +1,5 @@
+use tempdb
+go
 -- A basic exception
 SELECT 1/0 ;
 

@@ -1,4 +1,6 @@
 -- Use Window function in a WHERE clause
+use AdventureWorks2016
+go
 ;WITH CTE1 AS (
 	SELECT *
 			, ROW_NUMBER() OVER (PARTITION BY CustomerID ORDER BY OrderDate) AS OrderDateRank
