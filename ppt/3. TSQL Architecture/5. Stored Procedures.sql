@@ -1,6 +1,10 @@
 USE tempdb
 GO
-CREATE OR ALTER PROC dbo.Child 
+IF OBJECT_ID('tempdb.dbo.Child') IS NULL
+	EXEC sp_executesql N'CREATE PROCEDURE dbo.Child AS SELECT 1'
+GO
+
+ALTER PROC dbo.Child 
 	(@Parm VARCHAR(100) )
 AS
 BEGIN
